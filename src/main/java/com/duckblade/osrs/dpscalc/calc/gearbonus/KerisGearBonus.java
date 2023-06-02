@@ -23,10 +23,14 @@ public class KerisGearBonus implements GearBonusComputable
 		ItemID.KERISP_10583,
 		ItemID.KERISP_10584,
 		ItemID.KERIS_PARTISAN,
-		ItemID.KERIS_PARTISAN_OF_BREACHING
+		ItemID.KERIS_PARTISAN_OF_BREACHING,
+		ItemID.KERIS_PARTISAN_OF_CORRUPTION,
+		ItemID.KERIS_PARTISAN_OF_THE_SUN
 	);
 
 	private static final GearBonuses KERIS_STRENGTH_BONUS = GearBonuses.of(1.0, 1.33);
+
+	private static final GearBonuses KERIS_PARTISAN_OF_BREACHING_BONUS = GearBonuses.of(1.33, 1.33);
 
 	private final WeaponComputable weaponComputable;
 
@@ -45,8 +49,18 @@ public class KerisGearBonus implements GearBonusComputable
 		{
 			return GearBonuses.EMPTY;
 		}
-
-		return KERIS_STRENGTH_BONUS;
+		else if (wieldingKerisPartisanOfBreaching(context))
+		{
+			return KERIS_PARTISAN_OF_BREACHING_BONUS;
+		}
+		else
+		{
+			return KERIS_STRENGTH_BONUS;
+		}
 	}
 
+	private boolean wieldingKerisPartisanOfBreaching(ComputeContext context)
+	{
+		return context.get(weaponComputable).getItemId() == ItemID.KERIS_PARTISAN_OF_BREACHING;
+	}
 }

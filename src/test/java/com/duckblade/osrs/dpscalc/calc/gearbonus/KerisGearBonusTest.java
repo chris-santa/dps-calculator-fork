@@ -79,8 +79,17 @@ class KerisGearBonusTest
 	void givesBonusForKalphite()
 	{
 		when(context.get(ComputeInputs.DEFENDER_ATTRIBUTES)).thenReturn(KALPHITE);
+		when(context.get(weaponComputable)).thenReturn(ofItemId(ItemID.KERIS));
 
 		assertEquals(GearBonuses.of(1, 1.33), kerisGearBonus.compute(context));
 	}
 
+	@Test
+	void givesIncreasedAccuracyWhenWieldingBreaching()
+	{
+		when(context.get(ComputeInputs.DEFENDER_ATTRIBUTES)).thenReturn(KALPHITE);
+		when(context.get(weaponComputable)).thenReturn(ofItemId(ItemID.KERIS_PARTISAN_OF_BREACHING));
+
+		assertEquals(GearBonuses.of(1.33, 1.33), kerisGearBonus.compute(context));
+	}
 }
